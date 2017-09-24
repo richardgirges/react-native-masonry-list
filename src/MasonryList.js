@@ -81,7 +81,7 @@ type State = {
 };
 
 // This will get cloned and added a bunch of props that are supposed to be on
-// ScrollView so we wan't to make sure we don't pass them over (especially
+// ScrollView so we want to make sure we don't pass them over (especially
 // onLayout since it exists on both).
 class FakeScrollView extends React.Component<{ style?: any, children?: any }> {
   render() {
@@ -196,6 +196,9 @@ export default class MasonryList extends React.Component<Props, State> {
     );
   };
 
+  /**
+   * Temporary workaround for onEndReached getting called by each column
+   */
   _onEndReached = event => {
     if (this._endReached) {
       return;
@@ -207,7 +210,7 @@ export default class MasonryList extends React.Component<Props, State> {
       this.props.onEndReached(event);
     }
 
-    // small lag to avoid _onEndReached getting double called by multiple columns
+    // small lag to avoid _onEndReached getting called by multiple columns
     setTimeout(() => {
       this._endReached = false;
     }, 200);
